@@ -77,6 +77,6 @@ create type if not exists custom_stats_topics (country text, topics list<custom_
 create table if not exists meetups.stats_topics
 (
     time_start text,
-    users      frozen<list<custom_stats_topics>>,
+    statistics      frozen<list<custom_stats_topics>>,
     primary key (time_start)
 );
