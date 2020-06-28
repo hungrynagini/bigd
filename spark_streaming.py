@@ -6,7 +6,7 @@ from pyspark.sql.functions import col, from_json, to_json, udf, struct
 if __name__ == '__main__':
     topic = 'meetups'
     kafka_ips = "172.31.64.213:9092,172.31.67.169:9092,172.31.79.226:9092"
-    cassandra_ip = '172.31.72.233'
+    cassandra_ip = '172.31.79.89'
     spark = SparkSession.builder.appName('Meetups').config('spark.cassandra.connection.host', cassandra_ip) \
         .config("spark.cassandra.auth.username", "cassandra") \
         .config("spark.cassandra.auth.password", "cassandra9182").getOrCreate()
@@ -38,8 +38,9 @@ if __name__ == '__main__':
 
     events = ds.select(col('event.event_id').alias('event_id'), col('event.event_name').alias('event_name'),
                        col('event.time').alias('event_time'), col("group.group_name").alias("group_name"),
-                       col('name').alias('country'), col('group.group_city').alias("city"),
-                       col('group.group_topics.topic_name')) \
+                       col('name').alias('country'),
+                       col('group.group_city').alias("city"),
+                       col('group.group_topics.topic_name').alias('topics')) \
         .writeStream \
         .format("org.apache.spark.sql.cassandra") \
         .options(keyspace='meetups', table='events') \
@@ -50,11 +51,11 @@ if __name__ == '__main__':
         .format("org.apache.spark.sql.cassandra") \
         .options(keyspace='meetups', table='city_groups') \
         .start()
-    groups = ds.select(col('event.event_id').alias('event_id'), col('event.event_name').alias('event_name'),
-                       col('event.time').alias('event_time'), col('group.group_id').alias('group_id'),
-                       col("group.group_name").alias("group_name"), col('name').alias('country'),
+    groups = ds.select(col('event.event_id').alias('event_id'),  col('event.event_name').alias('event_name'),
+                       col('event.time').alias('event_time'), col("group.group_name").alias("group_name"),
+                       col('group.group_id').alias('group_id'), col('name').alias('country'),
                        col('group.group_city').alias("city"),
-                       col('group.group_topics.topic_name')) \
+                       col('group.group_topics.topic_name').alias('topics')) \
         .writeStream \
         .format("org.apache.spark.sql.cassandra") \
         .options(keyspace='meetups', table='groups') \

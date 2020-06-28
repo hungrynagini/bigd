@@ -19,7 +19,7 @@ create table if not exists meetups.countries
 
 create table if not exists meetups.events
 (
-    event_id        bigint,
+    event_id        text,
     event_name    text,
     event_time     text,
     group_name    text,
@@ -39,7 +39,7 @@ create table if not exists meetups.city_groups
 
 create table if not exists meetups.groups
 (
-    event_id        bigint,
+    event_id        text,
     event_name    text,
     event_time     text,
     group_name    text,
