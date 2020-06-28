@@ -70,9 +70,7 @@ create table if not exists meetups.stats_groups
     primary key (time_start)
 );
 
-create type if not exists custom_stats_topic (topic text, number bigint);
-
-create type if not exists custom_stats_topics (country text, topics list<custom_stats_topic> );
+create type if not exists custom_stats_topics (country text, topic text, number bigint);
 
 create table if not exists meetups.stats_topics
 (
