@@ -1,3 +1,3 @@
 # bigd
 
-![alt text](https://github.com/hungrynagini/bigd/Untitled Diagram.png?raw=true)
+![alt text](https://github.com/hungrynagini/bigd/diagrams.png?raw=true)
